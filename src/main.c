@@ -1,27 +1,30 @@
 #include "raylib.h"
+#include "player.h"
 
 int main()
 {
+	// Screen Initialization
 	const int screenWidth = 800;
 	const int screenHeight = 450;
 
-	InitWindow(screenWidth, screenHeight, "Moving Square");
+	InitWindow(screenWidth, screenHeight, "Top-down");
 
 	SetTargetFPS(60);
 
-	Rectangle square = { 100, 100, 50, 50 };
+	Player player;
+	InitPlayer(&player, (Vector2){ screenWidth / 2, screenHeight / 2 }); // Initialize player at the center of the screen
 	
 	while(!WindowShouldClose())
 	{
-		if(IsKeyDown(KEY_RIGHT)) square.x += 2;
-		if(IsKeyDown(KEY_LEFT)) square.x -= 2;
-		if(IsKeyDown(KEY_DOWN)) square.y += 2;
-		if(IsKeyDown(KEY_UP)) square.y -= 2;
+		// Update
+		UpdatePlayer(&player);
 
+		// Draw
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
-		DrawRectangleRec(square, RED);
+		// Draw here
+		DrawPlayer(&player);
 
 		EndDrawing();
 	}
